@@ -1,0 +1,4 @@
+/* Add to the existing CSS */
+.card.flipped {
+    transform: rotateY(180deg);
+}
