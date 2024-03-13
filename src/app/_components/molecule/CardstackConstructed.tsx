@@ -1,10 +1,14 @@
 "use client";
 import { CardStack } from "~/app/_components/atoms/cardstack";
 import { cn } from "@/utils/cn";
+import {InputFile} from "~/app/_components/atoms/fileinput";
+import {Input} from "~/components/ui/input";
 export function CardStackInput() {
     return (
         <div className="h-[40rem] flex items-center justify-center w-full">
+
             <CardStack items={CARDS} />
+
         </div>
     );
 }
@@ -33,11 +37,15 @@ const CARDS = [
         id: 0,
         name: "Manu Arora",
         designation: "Senior Software Engineer",
-        content: (
-            <p>
+        content: ({ setCards, cardId }) => (
+            <div>
+                <Input  type="file" accept=".json" onChange={setCards(2)} multiple/>
+
+                <p>
                 These cards are amazing, <Highlight>I want to use them</Highlight> in my
                 project. Framer motion is a godsend ngl tbh fam 🙏
             </p>
+            </div>
         ),
     },
     {

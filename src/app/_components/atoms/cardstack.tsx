@@ -1,14 +1,20 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import {InputFile} from "~/app/_components/atoms/fileinput";
 
-let interval: any;
 
-type Card = {
+// let interval: any;
+
+export type Card = {
     id: number;
     name: string;
     designation: string;
-    content: React.ReactNode;
+    content: React.ReactNode | ((props: { setCards: (cards: Card[]) => void; cardId: number; }) => React.ReactNode);
+};
+
+export type CardsProps = {
+    setCards: Dispatch<SetStateAction<Card[]>>;
 };
 
 export const CardStack = ({
@@ -24,20 +30,6 @@ export const CardStack = ({
     const SCALE_FACTOR = scaleFactor || 0.06;
     const [cards, setCards] = useState<Card[]>(items);
 
-    useEffect(() => {
-        startFlipping();
-    }, []);
-    const startFlipping = () => {
-        interval = setInterval(() => {
-            setCards((prevCards: Card[]) => {
-                const newArray = [...prevCards]; // create a copy of the array
-                newArray.unshift(newArray.pop()!); // move the last element to the front
-                return newArray;
-            });
-        }, 5000);
-
-        return () => clearInterval(interval);
-    };
 
     return (
         <div className="relative  h-60 w-60 md:h-60 md:w-96">
@@ -56,7 +48,9 @@ export const CardStack = ({
                         }}
                     >
                         <div className="font-normal text-neutral-700 dark:text-neutral-200">
-                            {card.content}
+                            {typeof card.content === 'function' ?
+                                card.content({ setCards, cardId: card.id }) :
+                                card.content}
                         </div>
                         <div>
                             <p className="text-neutral-500 font-medium dark:text-white">
