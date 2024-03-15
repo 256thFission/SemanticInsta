@@ -5,17 +5,18 @@ import {InputFile} from "~/app/_components/atoms/fileinput";
 
 
 // let interval: any;
+type ContentComponentProps = {
+    handleNextCard: () => void;
+};
+
 
 export type Card = {
     id: number;
     name: string;
     designation: string;
-    content: React.ReactNode | ((props: { setCards: (cards: Card[]) => void; cardId: number; }) => React.ReactNode);
+    content: React.ComponentType<ContentComponentProps>;
 };
 
-export type CardsProps = {
-    setCards: Dispatch<SetStateAction<Card[]>>;
-};
 
 export const CardStack = ({
                               items,
@@ -29,8 +30,14 @@ export const CardStack = ({
     const CARD_OFFSET = offset || 10;
     const SCALE_FACTOR = scaleFactor || 0.06;
     const [cards, setCards] = useState<Card[]>(items);
-
-
+    const handleNextCard = (index: number) => {
+        const newCards = [...cards];
+        const [removedCard] = newCards.splice(index, 1);
+        if (removedCard) {
+            newCards.push(removedCard);
+            setCards(newCards);
+        }
+    };
     return (
         <div className="relative  h-60 w-60 md:h-60 md:w-96">
             {cards.map((card, index) => {
@@ -48,9 +55,7 @@ export const CardStack = ({
                         }}
                     >
                         <div className="font-normal text-neutral-700 dark:text-neutral-200">
-                            {typeof card.content === 'function' ?
-                                card.content({ setCards, cardId: card.id }) :
-                                card.content}
+                            {React.cloneElement(card.content, { handleNextCard: () => handleNextCard(index) })}
                         </div>
                         <div>
                             <p className="text-neutral-500 font-medium dark:text-white">

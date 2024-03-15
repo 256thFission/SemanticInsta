@@ -11,12 +11,13 @@ interface InputFileProps {
 
 export function InputFile({ id, onFileSelect, onError }: InputFileProps) {
 
-    const handleFileChange = (event) => {
-        // Get the file from the input event
-        const file = event.target.files[0];
-
-        // Call the callback function passed from the parent
-        onFileSelect(file);
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files.length > 0) {
+            onFileSelect(event);
+        } else {
+            onError('No file selected')
+            console.log("that screwed up");
+        }
     };
 
 
