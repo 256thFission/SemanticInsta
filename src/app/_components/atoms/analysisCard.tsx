@@ -1,14 +1,17 @@
 "use client"
 import React from "react";
 import {Highlight} from "~/app/_components/molecule/CardstackConstructed";
-import {InputFile} from "~/app/_components/atoms/fileinput";
+import {ml_main} from "@/utils/ONNX_utils";
 type FileCardProps = {
     handleNextCard: () => void;
 };
 
 
-export const FileCard : React.FC<FileCardProps> = ({ handleNextCard }) => {
-
+export const AnalyzeCard : React.FC<FileCardProps> = ({ handleNextCard }) => {
+    const handleRunAnalysis = () => {
+        ml_main("./model/original_small.onnx","mamamia taco", );
+        handleNextCard();
+    }
 
     return(
         <div>
@@ -16,7 +19,7 @@ export const FileCard : React.FC<FileCardProps> = ({ handleNextCard }) => {
                 These cards are amazing, <Highlight>I want to use them</Highlight> in my
                 project. Framer motion is a godsend ngl tbh fam 🙏
             </p>
-            <InputFile id={"msgfile"} onFileSelect={()=>handleNextCard()} onError={(error) => console.log(error)}/>
+            <button onClick={handleRunAnalysis}> baba bia</button>
         </div>
     )
 }

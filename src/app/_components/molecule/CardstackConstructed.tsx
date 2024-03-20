@@ -4,6 +4,8 @@ import { cn } from "@/utils/cn";
 import {InputFile} from "~/app/_components/atoms/fileinput";
 import React from "react";
 import {FileCard} from "~/app/_components/atoms/fileCard";
+import {AnalyzeCard} from "~/app/_components/atoms/analysisCard";
+
 
 export function CardStackInput() {
     const [cards, setCards] = React.useState(CARDS);
@@ -51,7 +53,7 @@ const CARDS = [
         name: "Elon Musk",
         designation: "Senior Shitposter",
         content: (
-            <FileCard handleNextCard={() => {}} />
+            <AnalyzeCard handleNextCard={() => {}} />
 
         ),
     },
