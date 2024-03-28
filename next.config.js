@@ -31,7 +31,11 @@ const nextConfig = {
     webpack: (config) => {
         config.resolve.extensions.push(".ts", ".tsx");
         config.resolve.fallback = { fs: false };
-
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            "sharp$": false,
+            "onnxruntime-node$": false,
+        }
         config.plugins.push(
             new NodePolyfillPlugin(),
             new CopyPlugin({

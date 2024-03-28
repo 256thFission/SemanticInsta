@@ -2,6 +2,8 @@
 import React, {useEffect, useState} from "react";
 import {Highlight} from "~/app/_components/molecule/CardstackConstructed";
 import {InputFile} from "~/app/_components/atoms/fileinput";
+import {useAtom} from "jotai";
+import {filesAtom} from "~/app/store/fileAtom";
 type FileCardProps = {
     handleNextCard: () => void;
 };
