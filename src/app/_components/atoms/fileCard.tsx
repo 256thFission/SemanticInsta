@@ -4,6 +4,7 @@ import {Highlight} from "~/app/_components/molecule/CardstackConstructed";
 import {InputFile} from "~/app/_components/atoms/fileinput";
 import {useAtom} from "jotai";
 import {filesAtom} from "~/app/store/fileAtom";
+
 type FileCardProps = {
     handleNextCard: () => void;
 };
@@ -11,7 +12,7 @@ type FileCardProps = {
 type FileChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 export const FileCard : React.FC<FileCardProps> = ({ handleNextCard }) => {
-    const [files, setFiles] = useState<File[]>([]);
+    const [files, setFiles] = useAtom(filesAtom);
 
     useEffect(() => {
         console.log(files);
@@ -21,6 +22,7 @@ export const FileCard : React.FC<FileCardProps> = ({ handleNextCard }) => {
         if (event.target.files) {
             const uploadedFiles: File[] = Array.from(event.target.files);
             const jsonFiles: File[] = uploadedFiles.filter(file => file.type === 'application/json');
+            // const extractFile: File | undefined = extractMsgs(jsonFiles);
             if (jsonFiles.length > 0) {
                 setFiles(jsonFiles);
                 console.log(files)

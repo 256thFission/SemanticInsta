@@ -23,7 +23,7 @@ export function InputFile({ id, onFileSelect, onError }: InputFileProps) {
 
     return (
         <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Input id={id} type="file" accept=".json" onChange={handleFileChange} multiple/>
+            <Input id={id} type="file" accept=".json" onChange={handleFileChange} />
         </div>
     )
 }
