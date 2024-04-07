@@ -54,6 +54,25 @@ export async function extractMessages(data: File[]): Promise<Message[]> {
     });
 }
 
+export async function purgeMessages(messages: Message[]): Promise<Message[]> {
+    const filteredMessages = messages.filter(message => {
+        if (message.content) {
+            const content = message.content.toLowerCase();
+            return !(
+                content.includes("liked a message".toLowerCase()) ||
+                content.includes("sent an attachment".toLowerCase()) ||
+                content.includes("audio call".toLowerCase()) ||
+                content.includes("because they're in quiet mode.".toLowerCase()) ||
+                content.includes("https://".toLowerCase()) ||
+                content.includes("video chat".toLowerCase())
+            );
+        }
+        return false;
+    });
+
+    return filteredMessages;
+}
+
 export async function  mergeMessages(messages: Message[]): Promise<MergedMessage[]> {
     const mergedMessages: MergedMessage[] = [];
 

@@ -107,3 +107,25 @@ visibility: hidden;
   transform: rotateY(180deg);
 
 }
+
+.crosshatch-pattern {
+  background: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          #ccc 10px,
+          #ccc 20px
+  ),
+  repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 10px,
+          #ccc 10px,
+          #ccc 20px
+  );
+}
+
+.ProgressPrimitive.Indicator {
+  background-image: url('../../public/pattern.svg');
+  background-repeat: repeat;
+}

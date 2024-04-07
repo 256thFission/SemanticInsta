@@ -1,7 +1,6 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-// More specific type for the JSON file content (Example: Array of objects)
 type JSONData = Record<string, any>;
 
 type JSONFileContent = JSONData | null;
